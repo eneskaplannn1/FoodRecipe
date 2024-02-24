@@ -8,10 +8,9 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(undefined);
+  const [user, setUser] = useState("Enes");
   const router = useRouter();
   const rootSegment = useSegments()[0];
-  console.log(rootSegment);
 
   useEffect(() => {
     if (!user && rootSegment !== "(auth)") {
