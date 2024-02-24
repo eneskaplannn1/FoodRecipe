@@ -41,9 +41,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     paddingLeft: 18,
   },
-
   greetingText: {
-    fontSize: 19,
+    fontSize: 22,
     fontWeight: "400",
   },
   mainText: {

@@ -6,6 +6,7 @@ import RecipeCard from "./RecipeCard";
 export default function Recipes({ category }) {
   const [recipe, setRecipe] = useState([]);
   const [isLoading, setIsLoading] = useState();
+
   const getRecipesByCategory = async () => {
     setIsLoading(true);
     try {

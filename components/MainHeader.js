@@ -10,7 +10,6 @@ export default function MainHeader() {
           source={require("../assets/person.jpg")}
         />
       </View>
-      <Text style={styles.greetingText}>Icon</Text>
     </View>
   );
 }
@@ -27,9 +26,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   roundedImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: 75,
+    height: 75,
+    marginTop: 12,
+    borderRadius: 35,
   },
 
   greetingText: {

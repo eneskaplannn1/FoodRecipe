@@ -1,6 +1,6 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
-import { useRouter } from "expo-router";
+import { View, Text, Image, StyleSheet, Pressable } from "react-native";
+import { useNavigation, useRouter } from "expo-router";
 
 function RecipeCard({ item, index, isLoading }) {
   const isEven = index % 2 == 0;
@@ -8,7 +8,7 @@ function RecipeCard({ item, index, isLoading }) {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
+      <Pressable
         style={[
           styles.cardContainer,
           {
@@ -17,7 +17,7 @@ function RecipeCard({ item, index, isLoading }) {
             marginBottom: 4,
           },
         ]}
-        onPress={() => router.push("/recipes/23")}
+        onPress={() => router.push(`/recipes/${item.idMeal}`)}
       >
         {isLoading ? null : (
           <>
@@ -30,10 +30,12 @@ function RecipeCard({ item, index, isLoading }) {
               ]}
               source={{ uri: item.strMealThumb }}
             />
-            <Text style={styles.text}>{item.strMeal}</Text>
+            <Text style={styles.text}>
+              {item.strMeal.split(" ").slice(0, 2).join(" ")}
+            </Text>
           </>
         )}
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 }
