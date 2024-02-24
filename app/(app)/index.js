@@ -1,5 +1,5 @@
 import { View, Text, Image, StyleSheet } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import Recipes from "../../components/Recipes";
@@ -8,13 +8,13 @@ import Categories from "../../components/Categories";
 import MainHeader from "../../components/MainHeader";
 
 export default function Home() {
-  const categories = ["Pizza", "Deser", "Salads", "Beef", "Chicken", "Lamb"];
+  const [category, setCategory] = useState("Beef");
   return (
     <SafeAreaView style={styles.container}>
       <MainHeader />
       <Welcome />
-      <Categories categories={categories} />
-      <Recipes />
+      <Categories setCategory={setCategory} />
+      <Recipes category={category} />
     </SafeAreaView>
   );
 }

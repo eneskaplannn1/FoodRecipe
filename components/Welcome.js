@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     flex: 1,
     color: "#334155",
     fontSize: 18,
+    paddingLeft: 18,
   },
 
   greetingText: {

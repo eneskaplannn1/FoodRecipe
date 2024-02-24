@@ -1,81 +1,46 @@
 import { View, Text, ScrollView, StyleSheet } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MasonryList from "@react-native-seoul/masonry-list";
 import RecipeCard from "./RecipeCard";
 
-const filteredItems = [
-  {
-    source: "1.jpg",
-    name: "kebab",
-    id: Math.random(),
-  },
-  {
-    source: "2.jpg",
-    name: "pancake",
-    id: Math.random(),
-  },
-  {
-    source: "1.jpg",
-    name: "kebab",
-    id: Math.random(),
-  },
-  {
-    source: "2.jpg",
-    name: "pancake",
-    id: Math.random(),
-  },
-  {
-    source: "1.jpg",
-    name: "kebab",
-    id: Math.random(),
-  },
-  {
-    source: "2.jpg",
-    name: "pancake",
-    id: Math.random(),
-  },
-  {
-    source: "1.jpg",
-    name: "kebab",
-    id: Math.random(),
-  },
-  {
-    source: "2.jpg",
-    name: "pancake",
-    id: Math.random(),
-  },
-  {
-    source: "1.jpg",
-    name: "kebab",
-    id: Math.random(),
-  },
-  {
-    source: "2.jpg",
-    name: "pancake",
-    id: Math.random(),
-  },
-  {
-    source: "1.jpg",
-    name: "kebab",
-    id: Math.random(),
-  },
-  {
-    source: "2.jpg",
-    name: "pancake",
-    id: Math.random(),
-  },
-];
+export default function Recipes({ category }) {
+  const [recipe, setRecipe] = useState([]);
+  const [isLoading, setIsLoading] = useState();
+  const getRecipesByCategory = async () => {
+    setIsLoading(true);
+    try {
+      const res = await fetch(
+        `https://themealdb.com/api/json/v1/1/filter.php?c=${category}`
+      );
+      const result = await res.json();
 
-export default function Recipes() {
+      return result.meals;
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+      return [];
+    }
+  };
+  useEffect(() => {
+    const fetchData = async () => {
+      const recipeData = await getRecipesByCategory();
+      setRecipe(recipeData);
+      setIsLoading(false);
+    };
+
+    fetchData();
+  }, [category]);
+
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.text}>Recipes</Text>
       <MasonryList
-        data={filteredItems}
+        data={recipe}
         keyExtractor={(item) => item.id}
         numColumns={2}
         showsVerticalScrollIndicator={false}
-        renderItem={({ item, i }) => <RecipeCard item={item} index={i} />}
+        renderItem={({ item, i }) => (
+          <RecipeCard item={item} index={i} isLoading={isLoading} />
+        )}
         // refreshing={isLoadingNext}
         // onRefresh={() => refetch({ first: ITEM_CNT })}
         onEndReachedThreshold={0.1}
